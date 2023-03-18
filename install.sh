@@ -13,6 +13,6 @@ email='gustavo@overall.cloud'
 timezone='America/Sao_Paulo	'
 
 if [ "$(whoami)" != 'root' ]; then
-	echo $"You have no permission to run $0 as non-root user. Please use sudo"
+	echo $"Você não tem permissão para rodar $0 como usuário comum (non-root). Por favor use sudo"
 		exit 1;
 fi
