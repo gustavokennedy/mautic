@@ -1,8 +1,5 @@
 #!/bin/bash
-# Gustavo Kennedy Renkel
-# Overall.Cloud
 # Para problemas de permissão: chmod +x install.sh
-
 RED=`tput setaf 1`
 GREEN=`tput setaf 2`
 YELLOW=`tput setaf 3`
@@ -13,15 +10,6 @@ RESET=`tput sgr0`
 
 set -euo pipefail
 
-# Variáveis
-pass='SenhaMautic@123'
-db_name='Mautic'
-db_user='UsuarioMautic'
-web_root='/var/www/mautic'
-domain='example.com'
-email='gustavo@overall.cloud'
-timezone='America/Sao_Paulo'
-
 echo "${GREEN}
    ______      ________ _____            _      _        _____ _      ____  _    _ _____  
   / __ \ \    / /  ____|  __ \     /\   | |    | |      / ____| |    / __ \| |  | |  __ \ 
@@ -31,7 +19,17 @@ echo "${GREEN}
   \____/   \/   |______|_|  \_\/_/    \_\______|______(_)_____|______\____/ \____/|_____/ 
                                                                                           
                                                                                           
+
 "
+
+# Variáveis
+pass='SenhaMautic@123'
+db_name='Mautic'
+db_user='UsuarioMautic'
+web_root='/var/www/mautic'
+domain='example.com'
+email='gustavo@overall.cloud'
+timezone='America/Sao_Paulo'
 
 # Verifica usuário
 if [ "$(whoami)" != 'root' ]; then
