@@ -42,7 +42,6 @@ if [  -n "$(uname -a | grep Ubuntu)" ]; then
         echo `lsb_release -d | grep -oh Ubuntu.*`
 
 	echo "${RED} Atualizando sistema...${RESET}"
-        add-apt-repository -y ppa:certbot/certbot
         apt-get update
 	echo "${GREEN}----OK SISTEMA ATUALIZADO COM SUCESSO!${RESET}"
         echo "### Instalando pacotes LEMP"
