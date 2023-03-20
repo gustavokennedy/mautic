@@ -1,7 +1,8 @@
-
 #!/bin/bash
 # Gustavo Kennedy Renkel
 # Overall.Cloud
+# Para problemas de permissão: chmod +x install.sh
+
 RED=`tput setaf 1`
 GREEN=`tput setaf 2`
 YELLOW=`tput setaf 3`
