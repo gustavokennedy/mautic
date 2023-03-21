@@ -38,6 +38,7 @@ if [ "$(whoami)" != 'root' ]; then
 fi
 
 # Instala apps
+
 if [  -n "$(uname -a | grep Ubuntu)" ]; then
         echo `lsb_release -d | grep -oh Ubuntu.*`
 
@@ -59,16 +60,19 @@ else
 fi
 
 # Configura MySQL
+echo "${RED}  Configurando MySQL...${RESET}"
 mysql -e "DROP DATABASE IF EXISTS ${db_name};"
 mysql -e "CREATE DATABASE ${db_name} /*\!40100 DEFAULT CHARACTER SET utf8 */;"
 mysql -e "DROP USER IF EXISTS ${db_user}@localhost;"
 mysql -e "CREATE USER ${db_user}@localhost IDENTIFIED BY '${pass}';"
 mysql -e "GRANT ALL PRIVILEGES ON ${db_name}.* TO '${db_user}'@'localhost';"
 mysql -e "FLUSH PRIVILEGES;"
-
+echo "${GREEN}----OK MYSQL CONFIGURADO COM SUCESSO!${RESET}"
 cd
 
 # Download do Mautic
+
+echo "${RED}  Baixando e Instalando Mautic...${RESET}"
 curl -s https://api.github.com/repos/mautic/mautic/releases/latest \
 | grep "browser_download_url.*zip" \
 | cut -d : -f 2,3 \
@@ -77,8 +81,11 @@ curl -s https://api.github.com/repos/mautic/mautic/releases/latest \
 
 unzip -o mautic.zip -d $web_root
 rm mautic.zip
+echo "${GREEN}----OK MAUTIC INSTALADO COM SUCESSO!${RESET}"
 
 # Define permissões
+
+echo "${RED}  Definindo permissões...${RESET}"
 cd $web_root
 chown -R $USER:$apacheUser .
 find . -type d -exec chmod 755 {} \;
@@ -89,7 +96,8 @@ chmod -R g+w app/config/
 chmod -R g+w media/files/
 chmod -R g+w media/images/
 chmod -R g+w translations/
+echo "${GREEN}----OK PERMISSÕES DEFINIDAS COM SUCESSO!${RESET}"
 
-#echo "${RED}  Reiniciando Nginx...${RESET}"
+echo "${RED}  Reiniciando Nginx...${RESET}"
 sudo systemctl reload nginx && sudo systemctl restart nginx
-#echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
+echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
