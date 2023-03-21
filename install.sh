@@ -57,3 +57,10 @@ else
         echo "ERRO: Instalação apenas compátivel com Linux Ubuntu!"
         exit 1
 fi
+
+mysql -e "DROP DATABASE IF EXISTS ${db_name};"
+mysql -e "CREATE DATABASE ${db_name} /*\!40100 DEFAULT CHARACTER SET utf8 */;"
+mysql -e "DROP USER IF EXISTS ${db_user}@localhost;"
+mysql -e "CREATE USER ${db_user}@localhost IDENTIFIED BY '${pass}';"
+mysql -e "GRANT ALL PRIVILEGES ON ${db_name}.* TO '${db_user}'@'localhost';"
+mysql -e "FLUSH PRIVILEGES;"
