@@ -47,7 +47,7 @@ if [  -n "$(uname -a | grep Ubuntu)" ]; then
 	echo "${GREEN}----OK SISTEMA ATUALIZADO COM SUCESSO!${RESET}"
         echo "### Instalando pacotes LEMP"
         apt-get --assume-yes install nginx mysql-server php php-cli php-fpm php-mysql unzip 
-        apt-get --assume-yes install php-zip php-xml php-imap php-opcache php-apcu php-memcached php-mbstring php-curl php-amqplib php-mbstring php-bcmath php-intl
+        apt-get --assume-yes install php-zip php-xml php-imap php-apcu php-memcached php-mbstring php-curl php-amqplib php-mbstring php-bcmath php-intl
 
         x=`lsb_release -rs`
         if (($(echo "$x < 18.04" | bc -l) ));then
