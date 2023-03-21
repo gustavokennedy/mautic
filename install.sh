@@ -64,3 +64,14 @@ mysql -e "DROP USER IF EXISTS ${db_user}@localhost;"
 mysql -e "CREATE USER ${db_user}@localhost IDENTIFIED BY '${pass}';"
 mysql -e "GRANT ALL PRIVILEGES ON ${db_name}.* TO '${db_user}'@'localhost';"
 mysql -e "FLUSH PRIVILEGES;"
+
+cd
+
+curl -s https://api.github.com/repos/mautic/mautic/releases/latest \
+| grep "browser_download_url.*zip" \
+| cut -d : -f 2,3 \
+| tr -d \" \
+| tail -1 | wget -O mautic.zip -qi -
+
+unzip -o mautic.zip -d $web_root
+rm mautic.zip
