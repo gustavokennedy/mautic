@@ -67,6 +67,7 @@ mysql -e "FLUSH PRIVILEGES;"
 
 cd
 
+# Download do Mautic
 curl -s https://api.github.com/repos/mautic/mautic/releases/latest \
 | grep "browser_download_url.*zip" \
 | cut -d : -f 2,3 \
@@ -75,3 +76,15 @@ curl -s https://api.github.com/repos/mautic/mautic/releases/latest \
 
 unzip -o mautic.zip -d $web_root
 rm mautic.zip
+
+# Dedfine permissões
+cd $web_root
+chown -R $USER:$apacheUser .
+find . -type d -exec chmod 755 {} \;
+find . -type f -exec chmod 644 {} \;
+chmod -R g+w app/cache/
+chmod -R g+w app/logs/
+chmod -R g+w app/config/
+chmod -R g+w media/files/
+chmod -R g+w media/images/
+chmod -R g+w translations/
