@@ -88,3 +88,7 @@ chmod -R g+w app/config/
 chmod -R g+w media/files/
 chmod -R g+w media/images/
 chmod -R g+w translations/
+
+#echo "${RED}  Reiniciando Nginx...${RESET}"
+sudo systemctl reload nginx && sudo systemctl restart nginx
+#echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
