@@ -58,6 +58,7 @@ else
         exit 1
 fi
 
+# Configura MySQL
 mysql -e "DROP DATABASE IF EXISTS ${db_name};"
 mysql -e "CREATE DATABASE ${db_name} /*\!40100 DEFAULT CHARACTER SET utf8 */;"
 mysql -e "DROP USER IF EXISTS ${db_user}@localhost;"
@@ -77,7 +78,7 @@ curl -s https://api.github.com/repos/mautic/mautic/releases/latest \
 unzip -o mautic.zip -d $web_root
 rm mautic.zip
 
-# Dedfine permissões
+# Define permissões
 cd $web_root
 chown -R $USER:$apacheUser .
 find . -type d -exec chmod 755 {} \;
