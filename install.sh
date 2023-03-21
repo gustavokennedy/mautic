@@ -88,8 +88,6 @@ echo "${GREEN}----OK MAUTIC INSTALADO COM SUCESSO!${RESET}"
 echo "${RED}  Definindo permissões...${RESET}"
 
 cd $web_root
-find . -type d -exec chmod 755 {} \;
-find . -type f -exec chmod 644 {} \;
 chmod -R g+w app/cache/
 chmod -R g+w app/logs/
 chmod -R g+w app/config/
