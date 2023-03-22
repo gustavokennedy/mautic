@@ -100,6 +100,18 @@ echo "${RED}  Reiniciando Nginx...${RESET}"
 sudo systemctl reload nginx && sudo systemctl restart nginx
 echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
 
+# Configura Nginx
+#if ! echo "
+#Teste
+#" > /etc/nginx/sites-enabled/default
+#then
+#    echo -e $"Erro ao criar arquivo Nginx para $domain"
+#    exit;
+#else
+#    echo -e $"\nNovo host virtual configurado no Nginx\n"
+#fi
+
+
 # Configura as crons
 echo "${RED}  Configurando Cronjobs...${RESET}"
 (crontab -l 2>/dev/null; echo "*/1 * * * * www-data /usr/bin/php /var/www/mautic/app/console mautic:segments:update > /dev/null 2>&1") | crontab -
