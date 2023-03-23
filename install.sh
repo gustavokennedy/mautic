@@ -125,11 +125,8 @@ echo "${RED}  Configurando Cronjobs...${RESET}"
 (crontab -l 2>/dev/null; echo "*/1 * * * * www-data /usr/bin/php /var/www/mautic/app/console mautic:broadcasts:send > /dev/null 2>&1") | crontab -
 (crontab -l 2>/dev/null; echo "*/1 * * * * www-data /usr/bin/php /var/www/mautic/app/console mautic:import > /dev/null 2>&1") | crontab -
 (crontab -l 2>/dev/null; echo "*/1 * * * * www-data /usr/bin/php /var/www/mautic/app/console mautic:campaigns:process_resets > /dev/null 2>&1") | crontab -
+
 echo "${GREEN}----OK CRONJOBS CONFIGURADAS COM SUCESSO!${RESET}"
-
-# Instalar SSL
-
-# Instalar PHPMYADMIN
 
 # Informa mensagem finalizada
 echo -e $"Sucesso! \nMautic instalado e configurado com sucecsso! \nO acesso é: https://$domain \nAnd localizado em $web_root"
