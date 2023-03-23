@@ -129,4 +129,4 @@ echo "${RED}  Configurando Cronjobs...${RESET}"
 echo "${GREEN}----OK CRONJOBS CONFIGURADAS COM SUCESSO!${RESET}"
 
 # Informa mensagem finalizada
-echo -e $"Sucesso! \nMautic instalado e configurado com sucecsso! \nO acesso é: https://$domain \nAnd localizado em $web_root"
+echo -e $"Sucesso! \nMautic instalado e configurado com sucecsso! \nO acesso é: https://$domain \nLocalizado em $web_root"
