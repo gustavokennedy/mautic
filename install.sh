@@ -1,4 +1,5 @@
 #!/bin/bash
+# Gustavo Kennedy Renkel
 # Para problemas de permissão: chmod +x install.sh
 RED=`tput setaf 1`
 GREEN=`tput setaf 2`
