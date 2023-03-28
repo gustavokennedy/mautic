@@ -129,5 +129,5 @@ echo "${RED}  Configurando Cronjobs...${RESET}"
 
 echo "${GREEN}----OK CRONJOBS CONFIGURADAS COM SUCESSO!${RESET}"
 
-# Informa mensagem finalizada
+# Mensagem ded finalizado
 echo -e $"Sucesso! \nMautic instalado e configurado com sucecsso! \nAcesso em https://$domain \nLocalizado em $web_root"
