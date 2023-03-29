@@ -22,7 +22,6 @@ echo "${GREEN}
                                                                                           
 
 "
-
 # Variáveis
 pass='SenhaMautic@123'
 db_name='Mautic'
