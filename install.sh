@@ -111,7 +111,7 @@ sudo systemctl reload nginx && sudo systemctl restart nginx
 echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
 
 # Configura Nginx
-if ! echo "
+echo "
 server {
         listen 443 default_server;
 
@@ -135,13 +135,7 @@ server {
 }
 
 " > /etc/nginx/sites-enabled/$dominio
-then
-    echo -e $"Erro ao criar host virtual Nginx para $dominio"
-    exit;
-else
-    echo -e $"\nNovo host virtual configurado no Nginx\n"
-fi
-rm -rf /etc/nginx/sites-enabled/default
+sudo rm -rf /etc/nginx/sites-enabled/default
 
 # Instala Certificado SSL
 echo "${RED}  Configurando Certificado SSL...${RESET}"
