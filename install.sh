@@ -23,9 +23,9 @@ echo "${GREEN}
 
 "
 # Variáveis
-pass='SenhaMautic@123'
-db_name='Mautic'
-db_user='UsuarioMautic'
+pass=''
+db_name='mautic'
+db_user='mautic'
 web_root='/var/www/mautic'
 domain='example.com'
 email='gustavo@overall.cloud'
