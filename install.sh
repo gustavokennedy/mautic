@@ -111,15 +111,16 @@ sudo systemctl reload nginx && sudo systemctl restart nginx
 echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
 
 # Configura Nginx
-echo "
+cat >/etc/nginx/sites-enabled/$dominio <<EOF
+
 server {
-        listen 443 default_server;
+        listen 80 default_server;
 
         root /var/www/html/mautic;
 
         index index.php;
 
-        server_name ${dominio} www.${dominio};
+        server_name $dominio www.$dominio;
 
         location / {
                 try_files $uri $uri/ /index.php$is_args$args;
@@ -133,7 +134,7 @@ server {
         access_log  /var/log/nginx/access.log;
         error_log  /var/log/nginx/error_log;
 }
-" > /etc/nginx/sites-enabled/$dominio
+EOF
 sudo rm -rf /etc/nginx/sites-enabled/default
 
 # Instala Certificado SSL
