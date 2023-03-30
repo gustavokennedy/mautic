@@ -30,7 +30,7 @@ pass='root'
 db_name='mautic'
 db_user='mautic'
 web_root='/var/www/html/mautic'
-dominio='example.com'
+dominio='mautic.site.com.br'
 email='gustavo@overall.cloud'
 timezone='America/Sao_Paulo'
 
