@@ -133,8 +133,7 @@ server {
         access_log  /var/log/nginx/access.log;
         error_log  /var/log/nginx/error_log;
 }
-
-" > /etc/nginx/sites-enabled/${dominio}
+" > /etc/nginx/sites-enabled/$dominio
 sudo rm -rf /etc/nginx/sites-enabled/default
 
 # Instala Certificado SSL
