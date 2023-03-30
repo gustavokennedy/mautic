@@ -107,8 +107,7 @@ sudo systemctl reload nginx && sudo systemctl restart nginx
 echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
 
 # Configura Nginx
-cat >/etc/nginx/sites-enabled/$dominio <<EOF
-
+cat > /etc/nginx/sites-enabled/$dominio <<EOF
 server {
         listen 80 default_server;
 
