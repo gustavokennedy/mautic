@@ -47,7 +47,7 @@ if [  -n "$(uname -a | grep Ubuntu)" ]; then
 	echo "${RED} Atualizando sistema...${RESET}"
         apt-get update
 	echo "${GREEN}----OK SISTEMA ATUALIZADO COM SUCESSO!${RESET}"
-        echo "### Instalando pacotes LEMP"
+        echo "${RED} Instalando pacote LEMP...${RESET}"
 	sudo apt -y install software-properties-common
 	sudo add-apt-repository ppa:ondrej/php --yes
 	sudo apt-get update
