@@ -26,7 +26,7 @@ echo "${GREEN}
 
 "
 # Variáveis
-pass=''
+pass='root'
 db_name='mautic'
 db_user='mautic'
 web_root='/var/www/html/mautic'
@@ -44,10 +44,6 @@ fi
 
 if [  -n "$(uname -a | grep Ubuntu)" ]; then
         echo `lsb_release -d | grep -oh Ubuntu.*`
-
-	echo "${RED} Atualizando sistema...${RESET}"
-        apt-get update
-	echo "${GREEN}----OK SISTEMA ATUALIZADO COM SUCESSO!${RESET}"
         echo "${RED} Instalando pacote LEMP...${RESET}"
 	sudo apt -y install software-properties-common
 	sudo add-apt-repository ppa:ondrej/php --yes
