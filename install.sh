@@ -2,9 +2,7 @@
 # Gustavo Kennedy Renkel
 # Para problemas de permissão: chmod +x install.sh
 # Antes de executar apontar DNS
-# Problema de MySQL - adicionar em 
-# sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
-# skip-grant-tables
+# Problema de MySQL: usuário root não pode ter senha ""
 #
 RED=`tput setaf 1`
 GREEN=`tput setaf 2`
