@@ -75,12 +75,12 @@ echo "${GREEN}----OK TIMEZONE ATUALIZADO COM SUCESSO!${RESET}"
 
 # Configura MySQL
 echo "${RED}  Configurando MySQL...${RESET}"
-sudo mysql -e "DROP DATABASE IF EXISTS ${db_name};"
-sudo mysql -e "CREATE DATABASE ${db_name} /*\!40100 DEFAULT CHARACTER SET utf8 */;"
-sudo mysql -e "DROP USER IF EXISTS ${db_user}@localhost;"
-sudo mysql -e "CREATE USER ${db_user}@localhost IDENTIFIED BY '${pass}';"
-sudo mysql -e "GRANT ALL PRIVILEGES ON ${db_name}.* TO '${db_user}'@'localhost';"
-sudo mysql -e "FLUSH PRIVILEGES;"
+mysql -e "DROP DATABASE IF EXISTS ${db_name};"
+mysql -e "CREATE DATABASE ${db_name} /*\!40100 DEFAULT CHARACTER SET utf8 */;"
+mysql -e "DROP USER IF EXISTS ${db_user}@localhost;"
+mysql -e "CREATE USER ${db_user}@localhost IDENTIFIED BY '${pass}';"
+mysql -e "GRANT ALL PRIVILEGES ON ${db_name}.* TO '${db_user}'@'localhost';"
+mysql -e "FLUSH PRIVILEGES;"
 echo "${GREEN}----OK MYSQL CONFIGURADO COM SUCESSO!${RESET}"
 cd
 
