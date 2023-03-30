@@ -2,7 +2,10 @@
 # Gustavo Kennedy Renkel
 # Para problemas de permissão: chmod +x install.sh
 # Antes de executar apontar DNS
-
+# Problema de MySQL - adicionar em 
+# sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+# skip-grant-tables
+#
 RED=`tput setaf 1`
 GREEN=`tput setaf 2`
 YELLOW=`tput setaf 3`
