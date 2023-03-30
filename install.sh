@@ -119,7 +119,7 @@ server {
 
         index index.php;
 
-        server_name $dominio;
+        server_name ${dominio};
 
         location / {
                 try_files $uri $uri/ /index.php$is_args$args;
