@@ -29,7 +29,7 @@ echo "${GREEN}
 pass=''
 db_name='mautic'
 db_user='mautic'
-web_root='/var/www/mautic'
+web_root='/var/www/html/mautic'
 dominio='example.com'
 email='gustavo@overall.cloud'
 timezone='America/Sao_Paulo'
@@ -134,7 +134,7 @@ server {
         error_log  /var/log/nginx/error_log;
 }
 
-" > /etc/nginx/sites-enabled/$dominio
+" > /etc/nginx/sites-enabled/${dominio}
 sudo rm -rf /etc/nginx/sites-enabled/default
 
 # Instala Certificado SSL
