@@ -1,6 +1,8 @@
 #!/bin/bash
 # Gustavo Kennedy Renkel
 # Para problemas de permissão: chmod +x install.sh
+# Antes de executar apontar DNS
+
 RED=`tput setaf 1`
 GREEN=`tput setaf 2`
 YELLOW=`tput setaf 3`
@@ -27,7 +29,7 @@ pass=''
 db_name='mautic'
 db_user='mautic'
 web_root='/var/www/mautic'
-domain='example.com'
+dominio='example.com'
 email='gustavo@overall.cloud'
 timezone='America/Sao_Paulo'
 
@@ -46,8 +48,8 @@ if [  -n "$(uname -a | grep Ubuntu)" ]; then
         apt-get update
 	echo "${GREEN}----OK SISTEMA ATUALIZADO COM SUCESSO!${RESET}"
         echo "### Instalando pacotes LEMP"
-	sudo --assume-yes apt -y install software-properties-common
-	sudo add-apt-repository ppa:ondrej/php
+	sudo apt -y install software-properties-common
+	sudo add-apt-repository ppa:ondrej/php --yes
 	sudo apt-get update
         apt-get --assume-yes install nginx mysql-server php7.4 php-cli php7.4-fpm unzip 
         apt-get --assume-yes install php7.4-cli php7.4-json php7.4-common php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-bcmath
@@ -62,6 +64,12 @@ else
         exit 1
 fi
 
+# Configura Timezone
+echo "${RED} Configurando timezone do servidor...${RESET}"
+sudo timedatectl set-timezone "America/Sao_Paulo"
+sudo systemctl restart systemd-timesyncd.service
+echo "${GREEN}----OK TIMEZONE ATUALIZADO COM SUCESSO!${RESET}"
+
 # Configura MySQL
 echo "${RED}  Configurando MySQL...${RESET}"
 mysql -e "DROP DATABASE IF EXISTS ${db_name};"
@@ -74,7 +82,6 @@ echo "${GREEN}----OK MYSQL CONFIGURADO COM SUCESSO!${RESET}"
 cd
 
 # Download do Mautic
-
 echo "${RED}  Baixando e Instalando Mautic...${RESET}"
 curl -s https://api.github.com/repos/mautic/mautic/releases/latest \
 | grep "browser_download_url.*zip" \
@@ -87,7 +94,6 @@ rm mautic.zip
 echo "${GREEN}----OK MAUTIC INSTALADO COM SUCESSO!${RESET}"
 
 # Define permissões
-
 echo "${RED}  Definindo permissões...${RESET}"
 
 cd $web_root
@@ -104,16 +110,43 @@ sudo systemctl reload nginx && sudo systemctl restart nginx
 echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
 
 # Configura Nginx
-#if ! echo "
-#Teste
-#" > /etc/nginx/sites-enabled/default
-#then
-#    echo -e $"Erro ao criar arquivo Nginx para $domain"
-#    exit;
-#else
-#    echo -e $"\nNovo host virtual configurado no Nginx\n"
-#fi
+if ! echo "
+server {
+        listen 443 default_server;
 
+        root /var/www/html/mautic;
+
+        index index.php;
+
+        server_name $dominio;
+
+        location / {
+                try_files $uri $uri/ /index.php$is_args$args;
+        }
+
+        location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+        }
+
+        access_log  /var/log/nginx/access.log;
+        error_log  /var/log/nginx/error_log;
+}
+
+" > /etc/nginx/sites-enabled/$dominio
+then
+    echo -e $"Erro ao criar host virtual Nginx para $dominio"
+    exit;
+else
+    echo -e $"\nNovo host virtual configurado no Nginx\n"
+fi
+rm -rf /etc/nginx/sites-enabled/default
+
+# Instala Certificado SSL
+echo "${RED}  Configurando Certificado SSL...${RESET}"
+sudo apt install certbot python3-certbot-nginx --assume-yes
+certbot run -n --nginx --agree-tos -d $dominio,www.$dominio  -m  gustavo@overall.cloud  --redirect
+echo "${GREEN}----OK CERTIFICADO SSL CONFIGURADO COM SUCESSO!${RESET}"
 
 # Configura as crons
 echo "${RED}  Configurando Cronjobs...${RESET}"
@@ -132,4 +165,4 @@ echo "${RED}  Configurando Cronjobs...${RESET}"
 echo "${GREEN}----OK CRONJOBS CONFIGURADAS COM SUCESSO!${RESET}"
 
 # Mensagem ded finalizado
-echo -e $"Sucesso! \nMautic instalado e configurado com sucecsso! \nAcesso em https://$domain \nLocalizado em $web_root"
+echo -e $"Sucesso! \nMautic instalado e configurado com sucecsso! \nAcesso em https://$dominio \nLocalizado em $web_root"
