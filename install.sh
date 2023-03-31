@@ -35,6 +35,7 @@ pass='root'
 db_name='mautic'
 db_user='mautic'
 web_root='/var/www/html/mautic'
+bloco='/etc/nginx/sites-enabled/'
 dominio='mkt.overall.cloud'
 email='gustavo@overall.cloud'
 timezone='America/Sao_Paulo'
@@ -117,7 +118,7 @@ echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
 [ $# != "1" ] && die "Use: $(basename $0) dominio"
 
 # Create nginx config file
-cat > /etc/nginx/sites-enabled/$1 <<EOF
+cat > $bloco/$1 <<EOF
 server {
         listen 80 default_server;
 
