@@ -121,29 +121,27 @@ echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
 cat >$BLOCO/$1 <<EOF
 
 server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
+        listen 80;
+        listen [::]:80;	
 
-        root /var/www/html/mautic;
-
-        index index.php;
+        root /var/www/html/mautic;;
+        index index.php index.html index.htm;
 
         server_name $1 www.$1;
 
         location / {
                 try_files $uri $uri/ /index.php$is_args$args;
-        }
+	}
 
         location ~ \.php$ {
                 include snippets/fastcgi-php.conf;
                 fastcgi_pass unix:/run/php/php7.4-fpm.sock;
         }
 	
-	#Logs
+        # Logs
         access_log  /var/log/nginx/access.log;
         error_log  /var/log/nginx/error_log;
 }
-
 EOF
 
 # Instala Certificado SSL
@@ -172,7 +170,7 @@ echo "${GREEN}----OK CRONJOBS CONFIGURADAS COM SUCESSO!${RESET}"
 echo "Você deseja reiniciar o Nginx?"
 select yn in "Sym" "Não"; do
     case $yn in
-        Yes ) /etc/init.d/nginx restart ; break;;
+        Yes ) sudo systemctl restart nginx ; break;;
         No ) exit;;
     esac
 done
