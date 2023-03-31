@@ -126,6 +126,9 @@ server {
 	server_name $1 www.$1;
     	root /var/www/html/mautic;
 	index index.html index.htm index.php;
+	
+	error_log  /var/log/nginx/error_log;
+	access_log  /var/log/nginx/access.log;
 
 	location / {
                 try_files \$uri \$uri/ /index.php;
