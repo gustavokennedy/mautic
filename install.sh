@@ -121,7 +121,6 @@ echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
 # Cria bloco Nginx
 echo "${RED}  Configurando bloco Nginx...${RESET}"
 cat >$BLOCO/$1 <<EOF
-
 server {
 	listen 80;
 	server_name $1 www.$1;
@@ -129,7 +128,7 @@ server {
 	index index.html index.htm index.php;
 
 	location / {
-                try_files $URI $URI/ /index.php$IS_ARGS$ARGS;
+                try_files $URI $URI/ /index.php?q=$URI&$ARGS;
         }
 
         location ~ \.php$ {
