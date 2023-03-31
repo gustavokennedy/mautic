@@ -128,7 +128,11 @@ server {
     index index.html index.htm index.php;
     location / {
                 try_files \$uri \$uri/ =404;
-}
+	}
+	location ~ \.php$ {
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                fastcgi_pass unix:/var/run/php7.4-fpm.sock;
+        }
 }
 EOF
 echo "${GREEN}----OK BLOCO NGINX CONFIGURADO COM SUCESSO!${RESET}"
