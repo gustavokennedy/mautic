@@ -122,7 +122,7 @@ cat >$BLOCO/$1 <<EOF
 
 server {
     listen 80;
-    server_name $1;
+    server_name $1 www.$1;
     root        /var/www/html/mautic;
     index index.html index.htm index.php;
     location / {
