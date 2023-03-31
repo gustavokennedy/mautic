@@ -108,6 +108,7 @@ chmod -R g+w media/images/
 chmod -R g+w translations/
 echo "${GREEN}----OK PERMISSÕES DEFINIDAS COM SUCESSO!${RESET}"
 
+# Reinicia Nginx
 echo "${RED}  Reiniciando Nginx...${RESET}"
 sudo systemctl reload nginx && sudo systemctl restart nginx
 echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
@@ -159,14 +160,10 @@ echo "${RED}  Configurando Cronjobs...${RESET}"
 
 echo "${GREEN}----OK CRONJOBS CONFIGURADAS COM SUCESSO!${RESET}"
 
-# Opção Reiniciar Nginx
-echo "Você deseja reiniciar o Nginx?"
-select yn in "Sym" "Não"; do
-    case $yn in
-        Yes ) sudo systemctl restart nginx ; break;;
-        No ) exit;;
-    esac
-done
+# Reinicia Nginx
+echo "${RED}  Reiniciando Nginx...${RESET}"
+sudo systemctl reload nginx && sudo systemctl restart nginx
+echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
 
 # Mensagem ded finalizado
 ok "Sucesso! Mautic instalado e configurado em $1"
