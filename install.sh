@@ -4,6 +4,11 @@
 # Antes de executar apontar DNS
 # Problema de MySQL: usuário root não pode ter senha ""
 #
+
+# Functions
+ok() { echo -e '\e[32m'$1'\e[m'; } # Green
+die() { echo -e '\e[1;31m'$1'\e[m'; exit 1; }
+
 RED=`tput setaf 1`
 GREEN=`tput setaf 2`
 YELLOW=`tput setaf 3`
@@ -108,7 +113,12 @@ sudo systemctl reload nginx && sudo systemctl restart nginx
 echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
 
 # Configura Nginx
-sudo tee $bloco > /dev/null <<EOF
+# Sanity check
+[ $(id -g) != "0" ] && die "Script must be run as root."
+[ $# != "1" ] && die "Use: $(basename $0) dominio"
+
+# Create nginx config file
+cat > $bloco <<EOF
 server {
         listen 80 default_server;
 
@@ -116,7 +126,7 @@ server {
 
         index index.php;
 
-        server_name $dominio www.$dominio;
+        server_name $1 www.$1;
 
         location / {
                 try_files $uri $uri/ /index.php$is_args$args;
@@ -127,16 +137,12 @@ server {
                 fastcgi_pass unix:/run/php/php7.4-fpm.sock;
         }
 
+	# Logs
         access_log  /var/log/nginx/access.log;
         error_log  /var/log/nginx/error_log;
 	
 }
 EOF
-
-# Vincula no Bloco Nginx
-echo "▶ Linking Server Blocks"
-sudo ln -s $bloco /etc/nginx/sites-enabled/
-
 
 # Instala Certificado SSL
 echo "${RED}  Configurando Certificado SSL...${RESET}"
