@@ -128,8 +128,7 @@ server {
 	index index.html index.htm index.php;
 
 	location / {
-                #try_files \$uri \$uri/ index.php;
-		try_files $URI $URI/ /index.php?q=$URI&$ARGS;
+                try_files \$uri \$uri/ /index.php;
         }
 
         location ~ \.php$ {
