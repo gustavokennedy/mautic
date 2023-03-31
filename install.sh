@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Gustavo Kennedy Renkel
 # Para problemas de permissão: chmod +x install.sh
 # Antes de executar apontar DNS
@@ -167,4 +167,4 @@ echo "${RED}  Configurando Cronjobs...${RESET}"
 echo "${GREEN}----OK CRONJOBS CONFIGURADAS COM SUCESSO!${RESET}"
 
 # Mensagem ded finalizado
-echo -e $"Sucesso! \nMautic instalado e configurado com sucecsso! \nAcesso em https://$dominio \nLocalizado em $web_root"
+ok "Sucesso! Mautic instalado e configurado em $1"
