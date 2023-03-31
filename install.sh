@@ -121,26 +121,13 @@ echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
 cat >$BLOCO/$1 <<EOF
 
 server {
-        listen 80;
-        listen [::]:80;	
-
-        root /var/www/html/mautic;;
-        index index.php index.html index.htm;
-
-        server_name $1 www.$1;
-
-        location / {
-                try_files $uri $uri/ /index.php$is_args$args;
-	}
-
-        location ~ \.php$ {
-                include snippets/fastcgi-php.conf;
-                fastcgi_pass unix:/run/php/php7.4-fpm.sock;
-        }
-	
-        # Logs
-        access_log  /var/log/nginx/access.log;
-        error_log  /var/log/nginx/error_log;
+    listen 80;
+    server_name $1;
+    root        /var/www/html/mautic;
+    index index.html index.htm index.php;
+    location / {
+                try_files \$uri \$uri/ =404;
+}
 }
 EOF
 
