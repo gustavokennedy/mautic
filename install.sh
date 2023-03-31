@@ -129,10 +129,10 @@ server {
 	index index.html index.htm index.php;
 
 	location / {
-                try_files index.php;
+                try_files $URI $URI/ /index.php$IS_ARGS$ARGS;
         }
 
-        location ~ \.php {
+        location ~ \.php$ {
                 include snippets/fastcgi-php.conf;
                 fastcgi_pass unix:/run/php/php7.4-fpm.sock;
         }
