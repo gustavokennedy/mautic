@@ -107,7 +107,7 @@ sudo systemctl reload nginx && sudo systemctl restart nginx
 echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
 
 # Configura Nginx
-echo "
+sudo tee $bloco > /dev/null <<EOF
 server {
         listen 80 default_server;
 
@@ -115,7 +115,7 @@ server {
 
         index index.php;
 
-        server_name ${dominio} www.${dominio};
+        server_name $dominio www.$dominio;
 
         location / {
                 try_files $uri $uri/ /index.php$is_args$args;
@@ -128,9 +128,14 @@ server {
 
         access_log  /var/log/nginx/access.log;
         error_log  /var/log/nginx/error_log;
-}" >> /etc/nginx/sites-enabled/mautic
-mv /etc/nginx/sites-enabled/mautic /etc/nginx/sites-enabled/$dominio
-sudo rm -rf /etc/nginx/sites-enabled/default
+	
+}
+EOF
+
+# Vincula no Bloco Nginx
+echo "▶ Linking Server Blocks"
+sudo ln -s $bloco /etc/nginx/sites-enabled/$dominio
+
 
 # Instala Certificado SSL
 echo "${RED}  Configurando Certificado SSL...${RESET}"
