@@ -118,6 +118,7 @@ echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
 [ $# != "1" ] && die "Usage: $(basename $0) domainName"
 
 # Cria bloco Nginx
+echo "${RED}  Configurando bloco Nginx...${RESET}"
 cat >$BLOCO/$1 <<EOF
 
 server {
@@ -130,6 +131,7 @@ server {
 }
 }
 EOF
+echo "${GREEN}----OK BLOCO NGINX CONFIGURADO COM SUCESSO!${RESET}"
 
 # Instala Certificado SSL
 echo "${RED}  Configurando Certificado SSL...${RESET}"
