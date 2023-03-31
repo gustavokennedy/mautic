@@ -35,7 +35,7 @@ pass='root'
 db_name='mautic'
 db_user='mautic'
 web_root='/var/www/html/mautic'
-bloco='/etc/nginx/sites-enabled/'
+BLOCO='/etc/nginx/sites-enabled/'
 dominio=$1
 email='gustavo@overall.cloud'
 timezone='America/Sao_Paulo'
@@ -113,6 +113,24 @@ sudo systemctl reload nginx && sudo systemctl restart nginx
 echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
 
 # Configura Nginx
+# Check
+[ $(id -g) != "0" ] && die "Script must be run as root."
+[ $# != "1" ] && die "Usage: $(basename $0) domainName"
+
+# Cria bloco Nginx
+cat >$BLOCO/$1 <<EOF
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name $1;
+    root        /var/www/$1/;
+    index index.html index.htm index.php index.nginx-debian.html;
+    location / {
+                try_files \$uri \$uri/ =404;
+                autoindex on;
+}
+EOF
 
 # Instala Certificado SSL
 echo "${RED}  Configurando Certificado SSL...${RESET}"
