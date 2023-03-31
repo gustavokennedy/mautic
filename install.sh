@@ -68,7 +68,7 @@ else
 fi
 
 # Aumenta memory_limit do FPM-PHP
-php -d memory_limit=128M fpm-config.php
+php -d memory_limit=512M fpm-config.php
 
 # Dá permissão ao Nginx
 sudo chown -R www-data /var/www/html/mautic/
