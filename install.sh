@@ -113,29 +113,6 @@ sudo systemctl reload nginx && sudo systemctl restart nginx
 echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
 
 # Configura Nginx
-# Sanity check
-[ $(id -g) != "0" ] && die "Script must be run as root."
-[ $# != "1" ] && die "Use: sudo $(basename $0) dominio"
-
-# Cria bloco Nginx
-cat > $bloco/$1 <<EOF
-server {
-        listen 80;
-        listen [::]:80;	
-
-        root /var/www/$1/htdocs;
-        index index.php index.html index.htm;
-
-        server_name $1 www.$1;
-
-        location / {
-                try_files $URI $URI/ /index.php?q=$URI&$ARGS;
-	}
-        # Logs
-        access_log $WEB_DIR/$1/logs/access.log;
-        error_log  $WEB_DIR/$1/logs/error.log;
-}
-EOF
 
 # Instala Certificado SSL
 echo "${RED}  Configurando Certificado SSL...${RESET}"
