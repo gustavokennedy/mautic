@@ -129,7 +129,7 @@ server {
 	index index.html index.htm index.php;
 
 	location / {
-                try_files $uri $uri/ /index.php;
+                try_files index.php;
         }
 
         location ~ \.php {
