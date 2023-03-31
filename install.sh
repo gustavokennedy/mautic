@@ -31,6 +31,7 @@ db_name='mautic'
 db_user='mautic'
 web_root='/var/www/html/mautic'
 dominio='mautic.site.com.br'
+bloco='/etc/nginx/sites-available/$dominio'
 email='gustavo@overall.cloud'
 timezone='America/Sao_Paulo'
 
@@ -134,7 +135,7 @@ EOF
 
 # Vincula no Bloco Nginx
 echo "▶ Linking Server Blocks"
-sudo ln -s $bloco /etc/nginx/sites-enabled/$dominio
+sudo ln -s $bloco /etc/nginx/sites-enabled/
 
 
 # Instala Certificado SSL
