@@ -121,18 +121,19 @@ echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
 # Cria bloco Nginx
 echo "${RED}  Configurando bloco Nginx...${RESET}"
 cat >$BLOCO/$1 <<EOF
-
 server {
-    listen 80;
-    server_name $1 www.$1;
-    root        /var/www/html/mautic;
-    index index.html index.htm index.php;
-    location / {
-                try_files \$uri \$uri/ =404;
-	}
-	location ~ \.php$ {
-                fastcgi_split_path_info ^(.+\.php)(/.+)$;
-                fastcgi_pass unix:/var/run/php7.4-fpm.sock;
+	listen 80;
+	server_name $1 www.$1;
+    	root        /var/www/html/mautic;
+	index index.html index.htm index.php;
+
+	location / {
+                try_files $uri $uri/ /index.php$is_args$args;
+        }
+
+        location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/run/php/php7.4-fpm.sock;
         }
 }
 EOF
