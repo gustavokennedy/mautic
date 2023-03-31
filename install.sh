@@ -36,7 +36,7 @@ db_name='mautic'
 db_user='mautic'
 web_root='/var/www/html/mautic'
 bloco='/etc/nginx/sites-enabled/'
-dominio='mkt.overall.cloud'
+dominio=$1
 email='gustavo@overall.cloud'
 timezone='America/Sao_Paulo'
 
@@ -115,39 +115,32 @@ echo "${GREEN}----OK NGINX REINICIADO COM SUCESSO!${RESET}"
 # Configura Nginx
 # Sanity check
 [ $(id -g) != "0" ] && die "Script must be run as root."
-[ $# != "1" ] && die "Use: $(basename $0) dominio"
+[ $# != "1" ] && die "Use: sudo $(basename $0) dominio"
 
-# Create nginx config file
+# Cria bloco Nginx
 cat > $bloco/$1 <<EOF
 server {
-        listen 80 default_server;
+        listen 80;
+        listen [::]:80;	
 
-        root /var/www/html/mautic;
-
-        index index.php;
+        root /var/www/$1/htdocs;
+        index index.php index.html index.htm;
 
         server_name $1 www.$1;
 
         location / {
-                try_files $uri $uri/ /index.php$is_args$args;
-        }
-
-        location ~ \.php$ {
-                include snippets/fastcgi-php.conf;
-                fastcgi_pass unix:/run/php/php7.4-fpm.sock;
-        }
-
-	# Logs
-        access_log  /var/log/nginx/access.log;
-        error_log  /var/log/nginx/error_log;
-	
+                try_files $URI $URI/ /index.php?q=$URI&$ARGS;
+	}
+        # Logs
+        access_log $WEB_DIR/$1/logs/access.log;
+        error_log  $WEB_DIR/$1/logs/error.log;
 }
 EOF
 
 # Instala Certificado SSL
 echo "${RED}  Configurando Certificado SSL...${RESET}"
 sudo apt install certbot python3-certbot-nginx --assume-yes
-certbot run -n --nginx --agree-tos -d $dominio,www.$dominio  -m  gustavo@overall.cloud  --redirect
+certbot run -n --nginx --agree-tos -d $1,www.$1  -m  gustavo@overall.cloud  --redirect
 echo "${GREEN}----OK CERTIFICADO SSL CONFIGURADO COM SUCESSO!${RESET}"
 
 # Configura as crons
@@ -165,6 +158,15 @@ echo "${RED}  Configurando Cronjobs...${RESET}"
 (crontab -l 2>/dev/null; echo "*/1 * * * * www-data /usr/bin/php /var/www/mautic/app/console mautic:campaigns:process_resets > /dev/null 2>&1") | crontab -
 
 echo "${GREEN}----OK CRONJOBS CONFIGURADAS COM SUCESSO!${RESET}"
+
+# Opção Reiniciar Nginx
+echo "Você deseja reiniciar o Nginx?"
+select yn in "Sym" "Não"; do
+    case $yn in
+        Yes ) /etc/init.d/nginx restart ; break;;
+        No ) exit;;
+    esac
+done
 
 # Mensagem ded finalizado
 ok "Sucesso! Mautic instalado e configurado em $1"
