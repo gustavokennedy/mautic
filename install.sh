@@ -67,6 +67,9 @@ else
         exit 1
 fi
 
+# Dá permissão ao Nginx
+sudo chown -R www-data /var/www/html/mautic/
+
 # Configura Timezone
 echo "${RED} Configurando timezone do servidor...${RESET}"
 sudo timedatectl set-timezone "America/Sao_Paulo"
