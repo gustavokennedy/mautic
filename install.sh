@@ -55,7 +55,7 @@ if [  -n "$(uname -a | grep Ubuntu)" ]; then
 	sudo add-apt-repository ppa:ondrej/php --yes
 	sudo apt-get update
         apt-get --assume-yes install nginx mysql-server php7.4 php-cli php7.4-fpm unzip 
-        apt-get --assume-yes install php7.4-imap php7.4-cli php7.4-json php7.4-common php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-bcmath
+        apt-get --assume-yes install php7.4-imap php7.4-intl php7.4-cli php7.4-json php7.4-common php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-bcmath
 
         x=`lsb_release -rs`
         if (($(echo "$x < 18.04" | bc -l) ));then
