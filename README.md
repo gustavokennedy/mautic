@@ -14,5 +14,5 @@ chmod +x install.sh
 Execute:
 
 ```shell
-'./install.sh example.com'
+./install.sh example.com
 ```
