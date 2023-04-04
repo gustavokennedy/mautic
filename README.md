@@ -16,6 +16,7 @@ chmod +x install.sh
 sudo vi install.sh
 ```
 
+```shell
 pass='root'
 db_name='mautic'
 db_user='mautic'
@@ -24,6 +25,8 @@ BLOCO='/etc/nginx/sites-enabled/'
 dominio=$1
 email='gustavo@overall.cloud'
 timezone='America/Sao_Paulo'
+```
+
 
 
 ## Run
