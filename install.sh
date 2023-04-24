@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Gustavo Kennedy Renkel
+# by Gustavo Kennedy Renkel
 # Para problemas de permissão: chmod +x install.sh
 # Antes de executar apontar DNS
 # Problema de MySQL: usuário root não pode ter senha ""
